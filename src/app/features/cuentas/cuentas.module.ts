@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { CuentasRoutingModule } from './cuentas-routing.module';
 import { CuentasListComponent } from './pages/cuentas-list/cuentas-list.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -10,7 +11,8 @@ import { CuentasListComponent } from './pages/cuentas-list/cuentas-list.componen
   ],
   imports: [
     CommonModule,
-    CuentasRoutingModule
+    CuentasRoutingModule,
+    FormsModule
   ]
 })
 export class CuentasModule { }
