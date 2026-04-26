@@ -5,19 +5,11 @@ import { provideHttpClient } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing-module';
 import { App } from './app';
 import { LayoutModule } from './layout/layout.module';
+import { LoadingScreen } from './loading-screen/loading-screen';
 @NgModule({
-  declarations: [
-    App
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    LayoutModule,
-  ],
-  providers: [
-    provideBrowserGlobalErrorListeners(),
-    provideHttpClient()
-  ],
-  bootstrap: [App]
+  declarations: [App, LoadingScreen],
+  imports: [BrowserModule, AppRoutingModule, LayoutModule],
+  providers: [provideBrowserGlobalErrorListeners(), provideHttpClient()],
+  bootstrap: [App],
 })
-export class AppModule { }
+export class AppModule {}
