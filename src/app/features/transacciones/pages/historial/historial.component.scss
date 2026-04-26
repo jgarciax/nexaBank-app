@@ -1,1 +1,56 @@
-// styles delegated to global
+.mobile-cards {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    display: none;
+  }
+
+  .mobile-cards {
+    display: block;
+  }
+}
+
+.card-item {
+  background: white;
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cuenta {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.card-body .row-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 6px;
+  font-size: 13px;
+}
+
+.saldo {
+  font-weight: 600;
+}
+
+@media (max-width: 400px) {
+  .card-item {
+    padding: 10px;
+  }
+
+  .card-body .row-item {
+    flex-direction: column;
+    align-items: flex-start;
+    font-size: 12px;
+  }
+}
