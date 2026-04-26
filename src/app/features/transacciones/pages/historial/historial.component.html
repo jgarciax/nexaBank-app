@@ -1,4 +1,3 @@
-<!-- Page Header -->
 <div class="page-header">
   <div>
     <div class="page-title">Historial de Transacciones</div>
@@ -9,23 +8,38 @@
   </a>
 </div>
 
-<!-- Filter Card -->
 <div class="nxa-card mb-4">
   <div class="nxa-card-body pb-3">
     <form [formGroup]="form" (ngSubmit)="buscar()">
       <div class="row g-3 align-items-end">
+
         <div class="col-md-3">
           <label class="nxa-form-label">ID del Cliente *</label>
-          <input type="number" class="nxa-form-control" formControlName="clienteId" placeholder="Ej: 4">
+          <input type="number" placeholder="Ejemplo 1" class="nxa-form-control" formControlName="clienteId">
         </div>
+
         <div class="col-md-3">
           <label class="nxa-form-label">Fecha Inicio *</label>
-          <input type="date" class="nxa-form-control" formControlName="fechaInicio">
+          <div class="position-relative">
+            <input matInput [matDatepicker]="pickerInicio" placeholder="Ingresa la fecha de inicio" formControlName="fechaInicio" class="nxa-form-control" readonly>
+            <button type="button" (click)="pickerInicio.open()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none;">
+              <i class="fa-solid fa-calendar"></i>
+            </button>
+            <mat-datepicker #pickerInicio></mat-datepicker>
+          </div>
         </div>
+
         <div class="col-md-3">
           <label class="nxa-form-label">Fecha Fin *</label>
-          <input type="date" class="nxa-form-control" formControlName="fechaFin">
+          <div class="position-relative">
+            <input matInput [matDatepicker]="pickerFin" placeholder="Ingresa la fecha de fin" formControlName="fechaFin" class="nxa-form-control" readonly>
+            <button type="button" (click)="pickerFin.open()" style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none;">
+              <i class="fa-solid fa-calendar"></i>
+            </button>
+            <mat-datepicker #pickerFin></mat-datepicker>
+          </div>
         </div>
+
         <div class="col-md-3">
           <button type="submit" class="btn-nxa-primary w-100" style="justify-content:center" [disabled]="form.invalid || loading">
             <i class="fa-solid fa-magnifying-glass" *ngIf="!loading"></i>
@@ -33,34 +47,24 @@
             &nbsp;Buscar
           </button>
         </div>
+
       </div>
     </form>
   </div>
 </div>
 
-<!-- Results Card -->
+<div class="alert alert-danger" *ngIf="errorMsg">
+  {{ errorMsg }}
+</div>
+
 <div class="nxa-card" *ngIf="hasSearched">
-  <div class="nxa-card-header">
-    <div>
-      <span style="font-size:14px; font-weight:600; color:var(--text-dark)">Resultados</span>
-    </div>
-  </div>
   <div class="nxa-card-body">
 
-    <!-- Loading State -->
     <div class="empty-state" *ngIf="loading">
       <div class="empty-icon"><i class="fa-solid fa-spinner fa-spin text-primary"></i></div>
       <div class="empty-title">Buscando...</div>
     </div>
 
-    <!-- Empty State -->
-    <div class="empty-state" *ngIf="!loading && transacciones.length === 0">
-      <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
-      <div class="empty-title">No se encontraron transacciones</div>
-      <div class="empty-text">Intenta cambiar los parámetros de búsqueda.</div>
-    </div>
-
-    <!-- Table -->
     <div class="table-responsive" *ngIf="!loading && transacciones.length > 0">
       <table class="nxa-table">
         <thead>
@@ -76,15 +80,15 @@
         </thead>
         <tbody>
           <tr *ngFor="let t of transacciones">
-            <td>#{{ t.id_transaccion }}</td>
-            <td>{{ t.fecha_hora | date:'dd/MM/yyyy HH:mm' }}</td>
-            <td style="font-weight: 600;">{{ t.numero_cuenta }}</td>
-            <td>{{ t.nombre_cliente }}</td>
-            <td>{{ t.descripcion_transaccion }}</td>
-            <td style="font-weight: 600;">Q {{ t.monto | number:'1.2-2' }}</td>
+            <td>#{{ t.idTransaccion }}</td>
+            <td>{{ t.fecha | date:'dd/MM/yyyy HH:mm' }}</td>
+            <td>{{ t.numeroCuenta }}</td>
+            <td>{{ t.nombreCliente }}</td>
+            <td>{{ t.descripcion }}</td>
+            <td>Q {{ t.monto | number:'1.2-2' }}</td>
             <td>
-              <span class="badge-nxa" [ngClass]="t.tipo_operacion === 'Crédito' ? 'success' : 'danger'">
-                {{ t.tipo_operacion }}
+              <span class="badge-nxa" [ngClass]="t.tipoOperacion === 'CREDITO' ? 'success' : 'danger'">
+                {{ t.tipoOperacion }}
               </span>
             </td>
           </tr>
