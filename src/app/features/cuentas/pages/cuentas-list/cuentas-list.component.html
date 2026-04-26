@@ -5,40 +5,7 @@
     <div class="page-subtitle">Listado general de cuentas y sus saldos</div>
   </div>
 </div>
-<div class="nxa-card mb-4">
-  <div class="nxa-card-body pb-3">
-    <div class="row g-3 align-items-end">
 
-      <div class="col-md-4">
-        <label class="nxa-form-label">No. Cuenta</label>
-        <input type="text" class="nxa-form-control"
-               [(ngModel)]="numeroCuenta"
-               placeholder="Ej: 0001">
-      </div>
-
-      <div class="col-md-4 d-flex gap-2">
-        <button class="btn-nxa-primary w-100"
-                (click)="buscarCuenta()"
-                [disabled]="loading"
-                style="justify-content:center">
-          <i class="fa-solid fa-magnifying-glass" *ngIf="!loading"></i>
-          <i class="fa-solid fa-spinner fa-spin" *ngIf="loading"></i>
-          &nbsp;Buscar
-        </button>
-
-        <button class="btn-nxa-outline w-100"
-                (click)="limpiarBusqueda()"
-                [disabled]="loading"
-                style="justify-content:center">
-          Limpiar
-        </button>
-      </div>
-      <div class="alert alert-danger" *ngIf="errorMsg">
-        {{ errorMsg }}
-      </div>
-    </div>
-  </div>
-</div>
 <!-- Stats Row -->
 <div class="row g-3 mb-4">
   <div class="col-md-4">
