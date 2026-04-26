@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { CuentasService } from '../../services/cuentas.service';
 import { forkJoin } from 'rxjs';
 
+
 @Component({
   selector: 'app-cuentas-list',
   standalone: false,
@@ -14,6 +15,8 @@ export class CuentasListComponent implements OnInit {
   cuentas: any[] = [];
   loading = true;
   totalSaldo = 0;
+  numeroCuenta = '';
+  errorMsg = '';
 
   constructor(
     private cuentasService: CuentasService,
@@ -28,7 +31,7 @@ export class CuentasListComponent implements OnInit {
   get cuentasActivas(): number {
     return this.cuentas.filter(c => c.estatus === 'ACTIVA').length;
   }
-  cargarSaldos(): void {
+    cargarSaldos(): void {
     this.loading = true;
 
     this.cuentasService.getSaldoCuentas().subscribe({
@@ -60,10 +63,60 @@ export class CuentasListComponent implements OnInit {
     });
   }
 
-  calcularTotal(): void {
-    this.totalSaldo = this.saldos.reduce(
-      (acc, curr) => acc + (Number(curr.saldo) || 0),
-      0
-    );
+
+    buscarCuenta(): void {
+    if (!this.numeroCuenta) {
+      this.cargarSaldos();
+      return;
+    }
+
+    this.loading = true;
+    this.errorMsg = '';
+    this.saldos = [];
+
+    this.cuentasService.getCuentaByNumero(this.numeroCuenta).subscribe({
+      next: (resp: any) => {
+        const dataApi = resp.data ? resp.data : resp;
+
+        if (dataApi && Object.keys(dataApi).length > 0) {
+
+          const cuentaMapeada = {
+            numeroCuenta: dataApi.numero_cuenta,
+            nombreCliente: dataApi.cliente?.nombre_completo,
+            tipoCuenta: dataApi.producto?.tipo_producto,
+            tasaInteres: dataApi.producto?.tasa_interes,
+            saldo: dataApi.saldo,
+            estatus: dataApi.estatus
+          };
+
+          this.saldos = [cuentaMapeada];
+        } else {
+          this.saldos = [];
+          this.errorMsg = 'No se encontró la cuenta';
+        }
+
+        this.calcularTotal();
+        this.loading = false;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        this.errorMsg = 'Error al buscar la cuenta';
+        this.loading = false;
+        this.saldos = [];
+        this.cdr.detectChanges();
+      }
+    });
   }
+
+    calcularTotal(): void {
+      this.totalSaldo = this.saldos.reduce(
+        (acc, curr) => acc + (Number(curr.saldo) || 0),
+        0
+      );
+    }
+      limpiarBusqueda(): void {
+      this.numeroCuenta = '';
+      this.errorMsg = '';
+      this.cargarSaldos();
+    }
 }
