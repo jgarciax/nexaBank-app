@@ -1,0 +1,30 @@
+@media (max-width: 768px) {
+  .header-wrapper {
+    padding: 0 16px;
+    height: 56px;
+  }
+
+  .header-title {
+    font-size: 13px;
+  }
+
+  .header-breadcrumb {
+    display: none;
+  }
+
+  .header-actions {
+    gap: 6px;
+  }
+
+  .header-icon-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 13px;
+  }
+
+  .header-avatar {
+    width: 30px;
+    height: 30px;
+    font-size: 11px;
+  }
+}
