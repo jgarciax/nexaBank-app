@@ -26,6 +26,14 @@ export class CuentasService {
         catchError(this.handleError)
       );
   }
+    getCuentaByNumero(numero: string): Observable<any[]> {
+      return this.http
+      .get<CuentaResponse>(`${this.apiUrl}/cuenta/${numero}`)
+      .pipe(
+        map(res => this.validateResponse(res)),
+        catchError(this.handleError)
+      );
+  }
 
   getSaldoCuentas(): Observable<any[]> {
     return this.http
