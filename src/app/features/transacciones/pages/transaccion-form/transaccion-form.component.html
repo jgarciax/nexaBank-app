@@ -1,0 +1,87 @@
+<div class="row justify-content-center">
+  <div class="col-xl-5 col-lg-6 col-md-8">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <div class="page-title">Nueva Transacción</div>
+        <div class="page-subtitle">Registra un crédito o débito</div>
+      </div>
+      <a routerLink="/transacciones" class="btn-nxa-outline"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+    </div>
+
+    <!-- Error Alert -->
+    <div class="alert alert-danger" *ngIf="errorMsg">
+      <i class="fa-solid fa-triangle-exclamation"></i> {{ errorMsg }}
+    </div>
+
+    <div class="nxa-card">
+      <div class="nxa-card-body">
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+
+          <div class="row g-3">
+
+            <div class="col-12">
+              <label class="nxa-form-label">Número de Cuenta *</label>
+              <input class="nxa-form-control" formControlName="numeroCuenta"
+                     placeholder="Ej: 0001"/>
+            </div>
+            
+      <div class="col-12 nxa-select-wrapper">
+        <label class="nxa-form-label">Tipo de Operación *</label>
+        <mat-form-field appearance="outline" class="w-100">
+          <mat-select formControlName="codigoOperacionId" placeholder="Seleccionar operación...">
+            <mat-option value="">Seleccionar operación...</mat-option>
+            <mat-option *ngFor="let c of codigos" [value]="c.id">
+              {{ c.descripcion }} ({{ c.tipo_operacion }})
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+            <div class="col-12">
+              <label class="nxa-form-label">Monto (Q) *</label>
+              <input type="number" step="0.01" class="nxa-form-control" formControlName="monto"
+                     placeholder="0.00"/>
+            </div>
+
+           <div class="col-12">
+        <label class="nxa-form-label">Fecha *</label>
+
+        <div class="position-relative">
+          <input
+            matInput
+            [matDatepicker]="picker"
+            formControlName="fecha"
+            class="nxa-form-control"
+            readonly
+          >
+
+          <button
+            type="button"
+            (click)="picker.open()"
+            style="position:absolute; right:10px; top:50%; transform:translateY(-50%); border:none; background:none;">
+            <i class="fa-solid fa-calendar"></i>
+          </button>
+
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+      </div>
+
+            <div class="col-12 mt-4">
+              <button type="submit" class="btn-nxa-primary w-100"
+                      style="justify-content:center"
+                      [disabled]="form.invalid || loading">
+                <i class="fa-solid fa-spinner fa-spin" *ngIf="loading"></i>
+                <i class="fa-solid fa-check" *ngIf="!loading"></i>
+                &nbsp;Procesar Transacción
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

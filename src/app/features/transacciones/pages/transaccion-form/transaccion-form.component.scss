@@ -1,0 +1,25 @@
+.nxa-select-wrapper {
+  ::ng-deep {
+    .mat-mdc-form-field-subscript-wrapper {
+      display: none !important;
+    }
+
+    .mat-mdc-text-field-wrapper {
+      height: 45px !important;
+      padding: 0 12px !important;
+      display: flex;
+      align-items: center;
+      background: #fff !important;
+    }
+
+    .mat-mdc-form-field-flex {
+      height: 100% !important;
+      align-items: center !important;
+    }
+
+    .mat-mdc-form-field-infix {
+      padding: 0 !important;
+      min-height: auto !important;
+    }
+  }
+}

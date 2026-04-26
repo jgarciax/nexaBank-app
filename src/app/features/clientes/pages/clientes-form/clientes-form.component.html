@@ -1,0 +1,66 @@
+<div class="row justify-content-center">
+  <div class="col-xl-6 col-lg-8 col-md-10">
+
+    <!-- Page Header -->
+    <div class="page-header">
+      <div>
+        <div class="page-title">Nuevo Cliente</div>
+        <div class="page-subtitle">Completa los datos del cliente</div>
+      </div>
+      <a routerLink="/clientes" class="btn-nxa-outline"><i class="fa-solid fa-arrow-left"></i> Volver</a>
+    </div>
+
+    <div class="nxa-card">
+      <div class="nxa-card-body">
+        <form [formGroup]="form" (ngSubmit)="guardar()">
+
+          <div class="row g-3">
+
+            <div class="col-12">
+              <label class="nxa-form-label">Nombre Completo *</label>
+              <input class="nxa-form-control" formControlName="nombreCompleto"
+                     placeholder="Ej: Juan Carlos García"/>
+            </div>
+
+            <div class="col-md-6">
+              <label class="nxa-form-label">DPI *</label>
+              <input class="nxa-form-control" formControlName="dpi"
+                     placeholder="Número de DPI"/>
+            </div>
+
+            <div class="col-md-6">
+              <label class="nxa-form-label">Fecha de Nacimiento *</label>
+              <input type="date" class="nxa-form-control" formControlName="fechaNacimiento"/>
+            </div>
+
+            <div class="col-md-6">
+              <label class="nxa-form-label">Sexo *</label>
+              <select class="nxa-form-control" formControlName="sexo">
+                <option value="">Seleccionar...</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+              </select>
+            </div>
+
+            <div class="col-md-6">
+              <label class="nxa-form-label">País de Nacimiento *</label>
+              <input class="nxa-form-control" formControlName="paisNacimiento"
+                     placeholder="Ej: Guatemala"/>
+            </div>
+
+            <div class="col-12 mt-2">
+              <button type="submit" class="btn-nxa-primary w-100"
+                      style="justify-content:center; width:100%"
+                      [disabled]="form.invalid">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar Cliente
+              </button>
+            </div>
+
+          </div>
+
+        </form>
+      </div>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<!-- Page Header -->
+<div class="page-header">
+  <div>
+    <div class="page-title">Clientes</div>
+    <div class="page-subtitle">{{ clientes.length }} clientes registrados</div>
+  </div>
+  <a routerLink="nuevo" class="btn-nxa-primary">
+    <span><i class="fa-solid fa-plus"></i></span> Nuevo Cliente
+  </a>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-icon primary"><i class="fa-solid fa-user"></i></div>
+      <div>
+        <div class="stat-value">{{ clientes.length }}</div>
+        <div class="stat-label">Total Clientes</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-icon success"><i class="fa-solid fa-check"></i></div>
+      <div>
+        <div class="stat-value">{{ clientes.length }}</div>
+        <div class="stat-label">Clientes Activos</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-icon secondary"><i class="fa-solid fa-earth-americas"></i></div>
+      <div>
+        <div class="stat-value">{{ paisesUnicos }}</div>
+        <div class="stat-label">Países</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Clientes Grid -->
+<div class="nxa-card">
+  <div class="nxa-card-header">
+    <div>
+      <span style="font-size:14px; font-weight:600; color:var(--text-dark)">Lista de Clientes</span>
+    </div>
+  </div>
+  <div class="nxa-card-body">
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="clientes.length === 0">
+      <div class="empty-icon"><i class="fa-solid fa-users"></i></div>
+      <div class="empty-title">No hay clientes registrados</div>
+      <div class="empty-text">Haz clic en "Nuevo Cliente" para agregar el primero.</div>
+    </div>
+
+    <!-- Grid -->
+    <div class="row g-3" *ngIf="clientes.length > 0">
+      <div class="col-xl-3 col-md-4 col-sm-6" *ngFor="let c of clientes">
+        <div class="cliente-card">
+          <div class="cliente-avatar">{{ c.nombreCompleto.charAt(0).toUpperCase() }}</div>
+          <div class="cliente-name">{{ c.nombreCompleto }}</div>
+          <div class="cliente-dpi">DPI: {{ c.dpi }}</div>
+          <div class="cliente-pais"><i class="fa-solid fa-earth-americas text-muted me-1"></i> {{ c.paisNacimiento }}</div>
+          <div class="cliente-badge">Activo</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

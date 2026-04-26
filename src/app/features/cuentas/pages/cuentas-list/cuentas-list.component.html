@@ -1,0 +1,96 @@
+<!-- Page Header -->
+<div class="page-header">
+  <div>
+    <div class="page-title">Saldos de Cuentas</div>
+    <div class="page-subtitle">Listado general de cuentas y sus saldos</div>
+  </div>
+</div>
+
+<!-- Stats Row -->
+<div class="row g-3 mb-4">
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-icon primary"><i class="fa-solid fa-wallet"></i></div>
+      <div>
+        <div class="stat-value">{{ saldos.length }}</div>
+        <div class="stat-label">Total Cuentas</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-icon success"><i class="fa-solid fa-check"></i></div>
+      <div>
+        <div class="stat-value">{{ cuentasActivas }}</div>
+        <div class="stat-label">Cuentas Activas</div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="stat-card">
+      <div class="stat-icon secondary"><i class="fa-solid fa-coins"></i></div>
+      <div>
+        <div class="stat-value">Q {{ totalSaldo | number:'1.2-2' }}</div>
+        <div class="stat-label">Saldo Total</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Table Card -->
+<div class="nxa-card">
+  <div class="nxa-card-header">
+    <div>
+      <span style="font-size:14px; font-weight:600; color:var(--text-dark)">Detalle de Saldos</span>
+    </div>
+  </div>
+  <div class="nxa-card-body">
+
+    <!-- Loading State -->
+    <div class="empty-state" *ngIf="loading">
+      <div class="empty-icon"><i class="fa-solid fa-spinner fa-spin text-primary"></i></div>
+      <div class="empty-title">Cargando cuentas...</div>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="!loading && (!saldos || saldos.length === 0)">
+      <div class="empty-icon"><i class="fa-solid fa-folder-open"></i></div>
+      <div class="empty-title">No hay cuentas registradas</div>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive" *ngIf="!loading && saldos && saldos.length > 0">
+      <table class="nxa-table">
+        <thead>
+          <tr>
+            <th>No. Cuenta</th>
+            <th>Cliente</th>
+            <th>Tipo</th>
+            <th>Tasa</th>
+            <th>Saldo</th>
+            <th>Estatus</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of saldos">
+            <td style="font-weight: 600;">{{ s.numeroCuenta }}</td>
+            <td>{{ s.nombreCliente }}</td>
+            <td>
+              <span class="badge-nxa" [ngClass]="s.tipoCuenta === 'AHORRO' ? 'primary' : 'secondary'">
+                {{ s.tipoCuenta }}
+              </span>
+            </td>
+            <td>{{ s.tasaInteres }}%</td>
+            <td style="font-weight: 600;">Q {{ s.saldo | number:'1.2-2' }}</td>
+            <td>
+              <span class="badge-nxa" [ngClass]="s.estatus === 'ACTIVA' ? 'success' : 'danger'">
+                {{ s.estatus }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>
