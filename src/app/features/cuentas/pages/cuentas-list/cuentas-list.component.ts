@@ -32,8 +32,8 @@ export class CuentasListComponent implements OnInit {
     this.loading = true;
 
     this.cuentasService.getSaldoCuentas().subscribe({
-      next: (resp: any) => {
-        this.saldos = resp.data || [];
+      next: (resp: any[]) => {
+  this.saldos = resp;
         this.calcularTotal();
 
         this.loading = false;
@@ -50,8 +50,8 @@ export class CuentasListComponent implements OnInit {
 
   cargarCuentas(): void {
     this.cuentasService.getCuentas().subscribe({
-      next: (resp: any) => {
-        this.cuentas = resp.data || [];
+      next: (resp: any[]) => {
+        this.cuentas = resp;
         this.cdr.detectChanges(); 
       },
       error: (err) => {
