@@ -36,7 +36,7 @@
     overflow: hidden;
   }
 
-  @media (max-width: 767px) {
+    @media (max-width: 767px) {
     position: fixed;
     top: 0;
     left: 0;
@@ -45,18 +45,19 @@
     transform: translateX(-100%);
     transition: transform 0.3s ease;
     overflow: hidden;
+    z-index: 1100;
 
     &.collapsed {
-      width: 260px;
-      min-width: unset;
-      overflow: hidden;
-      transform: translateX(-100%);
+        width: 260px;
+        min-width: unset;
+        overflow: hidden;
+        transform: translateX(-100%);
     }
 
     &.mobile-open {
-      transform: translateX(0);
+        transform: translateX(0);
     }
-  }
+    }
 }
 
 .collapse-btn {
