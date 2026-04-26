@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { KeepAliveService } from '../keep-alive.service';
+
 
 @Component({
   selector: 'app-loading-screen',
@@ -15,7 +17,7 @@ export class LoadingScreen implements OnInit {
   progreso = 0;
   private interval: any;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private keepAlive: KeepAliveService) {}
 
   ngOnInit(): void {
     this.simularProgreso();
@@ -45,6 +47,7 @@ export class LoadingScreen implements OnInit {
           clearInterval(this.interval);
           this.progreso = 100;
           this.mensaje = '¡Sistema listo!';
+          this.keepAlive.iniciar();
           setTimeout(() => this.ready.emit(), 600);
         },
         error: () => {
