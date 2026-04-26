@@ -1,1 +1,2 @@
-<router-outlet></router-outlet>
+<app-loading-screen *ngIf="cargando" (ready)="cargando = false"></app-loading-screen>
+<router-outlet *ngIf="!cargando"></router-outlet>
