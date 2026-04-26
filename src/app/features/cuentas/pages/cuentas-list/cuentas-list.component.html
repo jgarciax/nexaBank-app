@@ -91,6 +91,41 @@
         </tbody>
       </table>
     </div>
+<div class="mobile-cards" *ngIf="!loading && saldos && saldos.length > 0">
+  <div class="card-item" *ngFor="let s of saldos">
+    
+    <div class="card-header">
+      <div class="cuenta">{{ s.numeroCuenta }}</div>
+      <span class="badge-nxa" [ngClass]="s.estatus === 'ACTIVA' ? 'success' : 'danger'">
+        {{ s.estatus }}
+      </span>
+    </div>
 
+      <div class="card-body">
+        <div class="row-item">
+          <span>Cliente</span>
+          <span>{{ s.nombreCliente }}</span>
+        </div>
+
+        <div class="row-item">
+          <span>Tipo</span>
+          <span class="badge-nxa" [ngClass]="s.tipoCuenta === 'AHORRO' ? 'primary' : 'secondary'">
+            {{ s.tipoCuenta }}
+          </span>
+        </div>
+
+        <div class="row-item">
+          <span>Tasa</span>
+          <span>{{ s.tasaInteres }}%</span>
+        </div>
+
+        <div class="row-item">
+          <span>Saldo</span>
+          <span class="saldo">Q {{ s.saldo | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
   </div>
 </div>
