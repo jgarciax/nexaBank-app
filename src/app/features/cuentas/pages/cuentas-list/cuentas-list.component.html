@@ -39,38 +39,48 @@
   <div class="nxa-card-body pb-3">
     <div class="row g-3 align-items-end">
 
-      <div class="col-md-4">
-        <label class="nxa-form-label">No. Cuenta</label>
-        <input type="text" class="nxa-form-control"
-               [(ngModel)]="numeroCuenta"
-               (ngModelChange)="nombreCliente = ''"
-               placeholder="Ej: 0001">
-      </div>
+      
 
-      <div class="col-md-4">
-        <label class="nxa-form-label">Nombre del Cliente</label>
-        <input type="text" class="nxa-form-control"
-               [(ngModel)]="nombreCliente"
-               (ngModelChange)="numeroCuenta = ''"
-               placeholder="Ej: Juan Pérez">
-      </div>
+      <div class="row g-3 align-items-end">
 
-      <div class="col-md-4 d-flex gap-2">
-        <button class="btn-nxa-primary w-100"
-                (click)="buscarCuenta()"
-                [disabled]="loading"
-                style="justify-content:center">
-          <i class="fa-solid fa-magnifying-glass" *ngIf="!loading"></i>
-          <i class="fa-solid fa-spinner fa-spin" *ngIf="loading"></i>
-          &nbsp;Buscar
-        </button>
-        <button class="btn-nxa-outline w-100"
-                (click)="limpiarBusqueda()"
-                [disabled]="loading"
-                style="justify-content:center">
-          Limpiar
-        </button>
-      </div>
+  <div class="col-md-5">
+    <label class="nxa-form-label">No. Cuenta</label>
+    <input type="text" class="nxa-form-control"
+           [(ngModel)]="numeroCuenta"
+           (ngModelChange)="nombreCliente = ''"
+           placeholder="Ej: 0001">
+  </div>
+
+  <div class="col-md-1 text-center pb-2" style="font-weight:600; color:var(--text-muted)">
+    ó
+  </div>
+
+  <div class="col-md-3">
+    <label class="nxa-form-label">Nombre del Cliente</label>
+    <input type="text" class="nxa-form-control"
+           [(ngModel)]="nombreCliente"
+           (ngModelChange)="numeroCuenta = ''"
+           placeholder="Ej: Juan Pérez">
+  </div>
+
+  <div class="col-md-3 d-flex gap-2">
+    <button class="btn-nxa-primary w-100"
+            (click)="buscarCuenta()"
+            [disabled]="loading"
+            style="justify-content:center">
+      <i class="fa-solid fa-magnifying-glass" *ngIf="!loading"></i>
+      <i class="fa-solid fa-spinner fa-spin" *ngIf="loading"></i>
+      &nbsp;Buscar
+    </button>
+    <button class="btn-nxa-outline w-100"
+            (click)="limpiarBusqueda()"
+            [disabled]="loading"
+            style="justify-content:center">
+      Limpiar
+    </button>
+  </div>
+
+</div>
 
     </div>
     <div *ngIf="errorMsg" style="margin-top:10px; font-size:13px; color:var(--danger)">
