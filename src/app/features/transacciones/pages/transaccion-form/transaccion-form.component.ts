@@ -65,37 +65,34 @@ export class TransaccionFormComponent implements OnInit {
       payload.fecha = payload.fecha + ':00';
     }
 
-    this.transaccionesService.createTransaction(payload).subscribe({
-      next: (resp) => {
-        this.loading = false;
-
-        if (resp.codigo_respuesta === 0) {
-          Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: resp.descripcion_respuesta
-          }).then(() => {
-            this.router.navigate(['/transacciones']);
-          });
-        } else {
+    this.transaccionesService.createTransaction(payload)
+      .pipe(finalize(() => this.loading = false))
+      .subscribe({
+        next: (resp) => {
+          if (resp.codigo_respuesta === 0) {
+            Swal.fire({
+              icon: 'success',
+              title: 'Éxito',
+              text: resp.descripcion_respuesta
+            }).then(() => {
+              this.router.navigate(['/transacciones']);
+            });
+          } else {
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: resp.descripcion_respuesta
+            });
+          }
+        },
+        error: (err) => {
+          const mensaje = err?.error?.descripcion_respuesta || 'Error de conexión con el servidor';
           Swal.fire({
             icon: 'error',
             title: 'Error',
-            text: resp.descripcion_respuesta
+            text: mensaje
           });
         }
-      },
-      error: (err) => {
-        this.loading = false;
-
-        const mensaje = err?.error?.descripcion_respuesta || 'Error de conexión con el servidor';
-
-        Swal.fire({
-          icon: 'error',
-          title: 'Error',
-          text: mensaje
-        });
+      });
       }
-    });
-  }
 }
