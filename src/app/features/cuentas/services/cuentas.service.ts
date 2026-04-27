@@ -53,22 +53,32 @@ export class CuentasService {
       );
   }
 
-  private validateResponse(res: CuentaResponse): any[] {
-    if (!res || res.codigo_respuesta !== 0) {
-      throw new Error(res?.descripcion_respuesta || 'Respuesta inválida del servidor');
-    }
-    return res.data || [];
+private validateResponse(res: CuentaResponse): any[] {
+  if (!res) {
+    throw new HttpErrorResponse({ status: 500, statusText: 'Respuesta vacía del servidor' });
   }
+  if (res.codigo_respuesta !== 0) {
+    throw new HttpErrorResponse({
+      status: res.codigo_respuesta,
+      statusText: res.descripcion_respuesta || 'Error en respuesta'
+    });
+  }
+  return res.data || [];
+}
 
-  private handleError(error: HttpErrorResponse) {
-    let mensaje = 'Error desconocido';
+private handleError(error: HttpErrorResponse | Error) {
+  let mensaje = 'Error desconocido';
 
+  if (error instanceof HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       mensaje = `Error cliente: ${error.error.message}`;
     } else {
-      mensaje = `Error servidor: ${error.status} - ${error.message}`;
+      mensaje = `Error servidor: ${error.status} - ${error.statusText}`;
     }
-
-    return throwError(() => new Error(mensaje));
+  } else {
+    mensaje = error.message;
   }
+
+  return throwError(() => new Error(mensaje));
+}
 }
