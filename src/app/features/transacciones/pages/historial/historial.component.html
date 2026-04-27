@@ -96,5 +96,38 @@
       </table>
     </div>
 
+    <div class="mobile-cards" *ngIf="!loading && transacciones.length > 0">
+      <div class="card-item" *ngFor="let t of transacciones">
+        <div class="card-header">
+          <span class="cuenta">{{ t.numeroCuenta }}</span>
+          <span class="badge-nxa" [ngClass]="t.tipoOperacion === 'CREDITO' ? 'success' : 'danger'">
+            {{ t.tipoOperacion }}
+          </span>
+        </div>
+        <div class="card-body">
+          <div class="row-item">
+            <span>ID</span>
+            <span>#{{ t.idTransaccion }}</span>
+          </div>
+          <div class="row-item">
+            <span>Fecha</span>
+            <span>{{ t.fecha | date:'dd/MM/yyyy HH:mm' }}</span>
+          </div>
+          <div class="row-item">
+            <span>Cliente</span>
+            <span>{{ t.nombreCliente }}</span>
+          </div>
+          <div class="row-item">
+            <span>Operación</span>
+            <span>{{ t.descripcion }}</span>
+          </div>
+          <div class="row-item">
+            <span>Monto</span>
+            <span class="saldo">Q {{ t.monto | number:'1.2-2' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
